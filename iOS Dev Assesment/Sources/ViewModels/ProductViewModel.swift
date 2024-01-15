@@ -7,8 +7,9 @@
 
 import Foundation
 
-class ProductViewModel {
+public class ProductViewModel {
     var products = [Product]()
+    var sumEvenNumbers = 0
     
     func getProducts(completion:@escaping () -> Void) {
         NetworkManager.fetchData(url: Constants.API.productsApiUrl) { products, error in
@@ -17,5 +18,14 @@ class ProductViewModel {
                 completion()
             }
         }
+    }
+    
+    func sumOfEvenNumbers(numbers: [Int]) -> Int {
+        for number in numbers {
+            if number % 2 == 0 {
+                sumEvenNumbers = sumEvenNumbers + number
+            }
+        }
+        return sumEvenNumbers
     }
 }

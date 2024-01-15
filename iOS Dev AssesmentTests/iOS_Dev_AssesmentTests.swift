@@ -9,28 +9,73 @@ import XCTest
 @testable import iOS_Dev_Assesment
 
 final class iOS_Dev_AssesmentTests: XCTestCase {
+    
+    var viewModel: ProductViewModel!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = ProductViewModel()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testEvenNumbers_EmptyRange() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [])
+        XCTAssertEqual(evenNumbers, 0)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testEvenNumbers_SingleEvenNumber() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [1,2,3])
+        XCTAssertEqual(evenNumbers, 2)
     }
-
+    
+    func testEvenNumbers_GreaterThanOrEqualTwo() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [1,2,3,5,7])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, 2)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, 2)
+    }
+    
+    func testEvenNumbers_EqualSix() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [1,2,3,4])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertEqual(evenNumbers, 6)
+        XCTAssertEqual(sumEvenNumbers, 6)
+    }
+        
+    func testEvenNumbers_RangeBeginWithPositiveEvenNumber() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [4,3,5,7])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, 4)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, 4)
+    }
+    
+    func testEvenNumbers_RangeBeginWithNegativeEvenNumber() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [-2,3,5,7])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, -2)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, -2)
+    }
+    
+    func testEvenNumbers_RangeEndingWithPositiveEvenNumber() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [3,5,7,2])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, 2)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, 2)
+    }
+    
+    func testEvenNumbers_RangeEndingWithNegativeEvenNumber() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [3,5,7,-6])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, -6)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, -6)
+    }
+    
+    func testEvenNumbers_RangeIncludesZero() {
+        let evenNumbers = viewModel.sumOfEvenNumbers(numbers: [3,5,7,0,8])
+        let sumEvenNumbers = viewModel.sumEvenNumbers
+        XCTAssertGreaterThanOrEqual(evenNumbers, 8)
+        XCTAssertGreaterThanOrEqual(sumEvenNumbers, 8)
+    }
 }
